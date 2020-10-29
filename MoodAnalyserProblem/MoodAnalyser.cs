@@ -29,13 +29,20 @@ namespace MoodAnalyserProblem
         /// <returns>Sad else Happy</returns>
         public string AnalyseMood(string message)
         {
-            ///Checks if user mood is sad will return sad,
-            ///if user mood is happy will return happy.
-            if (message.ToUpper().Contains("SAD"))
+            try
             {
-                return "SAD";
+                ///Checks if user mood is sad will return sad,
+                ///if user mood is happy will return happy.
+                if (message.ToUpper().Contains("SAD"))
+                {
+                    return "SAD";
+                }
+                else
+                {
+                    return "HAPPY";
+                }
             }
-            else
+            catch
             {
                 return "HAPPY";
             }

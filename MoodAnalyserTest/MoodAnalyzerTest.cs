@@ -16,7 +16,7 @@ namespace MoodAnalyserTest
             string expectedValue = "SAD";
             MoodAnalyser moodAnalyser = new MoodAnalyser(message);
             //Act
-            string result = moodAnalyser.AnalyseMood(message);
+            string result = moodAnalyser.AnalyseMood();
             //Assert
             Assert.AreEqual(expectedValue, result);
         }
@@ -31,9 +31,9 @@ namespace MoodAnalyserTest
             string expectedValue = "HAPPY";
             MoodAnalyser moodAnalyzer = new MoodAnalyser(message);
             //Act
-            string result = moodAnalyzer.AnalyseMood(message);
+            string result = moodAnalyzer.AnalyseMood();
             //Assert
             Assert.AreEqual(expectedValue, result);
-        }
+        }        
     }
 }
