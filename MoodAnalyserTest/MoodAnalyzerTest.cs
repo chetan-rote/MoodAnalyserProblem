@@ -16,7 +16,7 @@ namespace MoodAnalyserTest
             string expectedValue = "SAD";
             MoodAnalyser moodAnalyser = new MoodAnalyser(message);
             //Act
-            string result = moodAnalyser.AnalyseMood();
+            string result = moodAnalyser.AnalyseMood(message);
             //Assert
             Assert.AreEqual(expectedValue, result);
         }
@@ -31,9 +31,27 @@ namespace MoodAnalyserTest
             string expectedValue = "HAPPY";
             MoodAnalyser moodAnalyzer = new MoodAnalyser(message);
             //Act
-            string result = moodAnalyzer.AnalyseMood();
+            string result = moodAnalyzer.AnalyseMood(message);
             //Assert
             Assert.AreEqual(expectedValue, result);
-        }        
+        }
+        /// <summary>
+        /// Given the null should return happy.
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        [DataRow(null)]
+        public void GivenNull_ShouldReturnHappy(string message)
+        {
+            ///Arrange
+            string ecpectedValue = "HAPPY";
+            MoodAnalyser moodAnalyser = new MoodAnalyser(message);
+            ///Act
+            string result = moodAnalyser.AnalyseMood(message);
+
+            ///Assert
+            Assert.AreEqual(result, ecpectedValue);
+
+        }
     }
 }
