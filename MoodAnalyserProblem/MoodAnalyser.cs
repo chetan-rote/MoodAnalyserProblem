@@ -4,8 +4,24 @@ using System.Text;
 
 namespace MoodAnalyserProblem
 {
-    class MoodAnalyser
+    public class MoodAnalyser
     {
+        string message;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MoodAnalyser"/> class.
+        /// </summary>
+        public MoodAnalyser()
+        {
+            
+        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MoodAnalyser"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public MoodAnalyser(string message)
+        {
+            this.message = message;
+        }
         /// <summary>
         /// Analyses user's mood.
         /// </summary>
