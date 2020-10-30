@@ -16,7 +16,7 @@ namespace MoodAnalyserTest
             string expectedValue = "SAD";
             MoodAnalyser moodAnalyser = new MoodAnalyser(message);
             //Act
-            string result = moodAnalyser.AnalyseMood(message);
+            string result = moodAnalyser.AnalyseMood();
             //Assert
             Assert.AreEqual(expectedValue, result);
         }
@@ -31,27 +31,50 @@ namespace MoodAnalyserTest
             string expectedValue = "HAPPY";
             MoodAnalyser moodAnalyzer = new MoodAnalyser(message);
             //Act
-            string result = moodAnalyzer.AnalyseMood(message);
+            string result = moodAnalyzer.AnalyseMood();
             //Assert
             Assert.AreEqual(expectedValue, result);
         }
         /// <summary>
-        /// Given the null should return happy.
+        /// If given null mood will throw exception "Mood cannot be null"
         /// </summary>
-        /// <returns></returns>
-        [TestMethod]
-        [DataRow(null)]
-        public void GivenNull_ShouldReturnHappy(string message)
+        [TestMethod]        
+        public void GivenNullMood_ShouldReturnMoodCannotBeNull()
         {
-            ///Arrange
-            string ecpectedValue = "HAPPY";
-            MoodAnalyser moodAnalyser = new MoodAnalyser(message);
-            ///Act
-            string result = moodAnalyser.AnalyseMood(message);
-
-            ///Assert
-            Assert.AreEqual(result, ecpectedValue);
-
+            try
+            {
+                ///Arrange
+                string message = null;
+                MoodAnalyser moodAnalyser = new MoodAnalyser(message);
+                ///Act
+                string result = moodAnalyser.AnalyseMood();
+            }
+            catch (MoodAnalysisCustomException exception)
+            {
+                ///Assert
+                Assert.AreEqual("Mood cannot be null", exception.Message);
+            }
         }
+
+        /// <summary>
+        /// If given empty mood will throw exception "Mood cannot be empty".
+        /// </summary>
+        [TestMethod]
+        public void GivenEmptyMood_ShouldThrowMoodCannotBeEmpty()
+        {
+            try
+            {
+                ///Arrange
+                string message = "";
+                MoodAnalyser moodAnalyser = new MoodAnalyser(message);
+                ///Act
+                string result = moodAnalyser.AnalyseMood();
+            }
+            catch (MoodAnalysisCustomException exception)
+            {
+                ///Assert
+                Assert.AreEqual("Mood should not be empty", exception.Message);
+            }
+        }        
     }
 }
