@@ -11,7 +11,7 @@ namespace MoodAnalyserProblem
             Console.WriteLine("How is your Mood Happy or Sad..?");
             string message = Console.ReadLine();
             MoodAnalyser moodAnalyser = new MoodAnalyser();
-            Console.WriteLine(moodAnalyser.AnalyseMood(message));
+            Console.WriteLine(moodAnalyser.AnalyseMood());
         }
     }
 }
