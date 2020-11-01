@@ -6,7 +6,7 @@ namespace MoodAnalyserProblem
 {
     public class MoodAnalyser
     {
-        string message;
+       public string message;
         /// <summary>
         /// Initializes a new instance of the <see cref="MoodAnalyser"/> class.
         /// </summary>

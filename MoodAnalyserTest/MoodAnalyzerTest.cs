@@ -1,12 +1,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoodAnalyserProblem;
+using System.Collections.Specialized;
+
 namespace MoodAnalyserTest
 {
     [TestClass]
     public class MoodAnalyzerTest
     {
         /// <summary>
-        /// Givens the I am in sad mood should return sad.
+        ///Givens the I am in sad mood should return sad.
         /// </summary>
         [TestMethod]
         public void GivenIAmInSadMood_ShouldReturnSad()
@@ -34,9 +36,9 @@ namespace MoodAnalyserTest
             string result = moodAnalyzer.AnalyseMood();
             //Assert
             Assert.AreEqual(expectedValue, result);
-        }
+        }        
         /// <summary>
-        /// If given null mood will throw exception "Mood cannot be null"
+        ///If given null mood will throw exception "Mood cannot be null"
         /// </summary>
         [TestMethod]
         public void GivenNullMood_ShouldReturnMoodCannotBeNull()
@@ -75,7 +77,6 @@ namespace MoodAnalyserTest
                 Assert.AreEqual("Mood should not be empty", exception.Message);
             }
         }
-        ///UC4
         /// <summary>
         /// Givens the mood analyser class name should return mood analyser object.
         /// </summary>
@@ -126,7 +127,6 @@ namespace MoodAnalyserTest
         /// <summary>
         /// Givens the mood analyser class name should return mood analyser object using parametrized constructor.
         /// </summary>
-        /// UC5
         [TestMethod]
         public void GivenMoodAnalyserClassName_ShouldReturnMoodAnalyser_ObjectUsingParametrizedConstructor()
         {
@@ -206,6 +206,53 @@ namespace MoodAnalyserTest
             {
                 ///Assert
                 Assert.AreEqual("Method not found.", exception.Message);
+            }
+        }
+        /// <summary>
+        /// Givens the happy message with reflector should return happy.
+        /// </summary>
+        [TestMethod]
+        public void GivenHappyMessage_WithReflector_Should_ReturnHappy()
+        {
+            ///Act
+            string result = MoodAnalyserFactory.SetField("HAPPY", "message");
+
+            ///Assert
+            Assert.AreEqual("HAPPY", result);
+        }
+        /// <summary>
+        /// Gvens the improper field name should throw no such field exception.
+        /// </summary>
+        [TestMethod]
+        public void GvenImproperFieldName_Should_ThrowNoSuchFieldException()
+        {
+            try
+            {
+                ///Act
+                string mood = MoodAnalyserFactory.SetField("HAPPY", "message");              
+            }
+            catch(MoodAnalysisCustomException exception)
+            {
+                ///Assert
+                Assert.AreEqual("No such field error.", exception.Message);
+            }
+
+        }
+        /// <summary>
+        /// Given the null message should throw exception mood should not be null.
+        /// </summary>
+        [TestMethod]
+        public void GivenNullMessage_Should_ThrowException_MoodShouldNotBeNull()
+        {
+            try
+            {
+                ///Act
+                string mood = MoodAnalyserFactory.SetField("HAPPY", "message");
+            }
+            catch (MoodAnalysisCustomException exception)
+            {
+                ///Assert
+                Assert.AreEqual("Message should not be null", exception.Message);
             }
         }
     }
