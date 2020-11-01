@@ -31,11 +31,10 @@ namespace MoodAnalyserProblem
         {
             try
             {
-                //checks if user gives empty message.
+                ///checks if user gives empty message.
                 if (this.message.Equals(string.Empty))
                 {
-                    throw new MoodAnalysisCustomException(MoodAnalysisCustomException.ExceptionType.EMPTY_MESSAGE, 
-                        "Mood should not be empty");
+                    throw new MoodAnalysisCustomException(MoodAnalysisCustomException.ExceptionType.EMPTY_MESSAGE, "Mood should not be empty");
                 } 
                 ///Checks if user mood is sad will return sad,
                 ///if user mood is happy will return happy.
@@ -51,8 +50,7 @@ namespace MoodAnalyserProblem
             }
             catch(NullReferenceException)
             {
-                throw new MoodAnalysisCustomException(MoodAnalysisCustomException.ExceptionType.NULL_MESSAGE,
-                    "Mood cannot be null");
+                throw new MoodAnalysisCustomException(MoodAnalysisCustomException.ExceptionType.NULL_MESSAGE, "Mood cannot be null");                
             }
         }
     }

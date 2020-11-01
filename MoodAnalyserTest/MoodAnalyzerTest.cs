@@ -38,7 +38,7 @@ namespace MoodAnalyserTest
         /// <summary>
         /// If given null mood will throw exception "Mood cannot be null"
         /// </summary>
-        [TestMethod]        
+        [TestMethod]
         public void GivenNullMood_ShouldReturnMoodCannotBeNull()
         {
             try
@@ -82,12 +82,9 @@ namespace MoodAnalyserTest
         [TestMethod]
         public void GivenMoodAnalyserClassName_ShouldReturnMoodAnalyserObject()
         {
-            ///Arrange
-            string className = "MoodAnalyserProblem.MoodAnalyser";
-            string constructorName = "MoodAnalyser";
             ///Act
             object expected = new MoodAnalyser();
-            object obj = MoodAnalyserFactory.CreateMoodAnalyserObject(className, constructorName);
+            object obj = MoodAnalyserFactory.CreateMoodAnalyserObject("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser");
             ///Assert
             expected.Equals(obj);
         }
@@ -99,12 +96,9 @@ namespace MoodAnalyserTest
         {
             try
             {
-                ///Arrange
-                string className = "ClassNameSpace.MoodAnalyser";
-                string constructorName = "MoodAnalyser";
                 ///Act
                 object expected = new MoodAnalyser();
-                object obj = MoodAnalyserFactory.CreateMoodAnalyserObject(className, constructorName);
+                object obj = MoodAnalyserFactory.CreateMoodAnalyserObject("ClassNameSpace.MoodAnalyser", "MoodAnalyser");
             }
             catch (MoodAnalysisCustomException exception)
             {
@@ -120,11 +114,8 @@ namespace MoodAnalyserTest
         {
             try
             {
-                ///Arrange
-                string className = "MoodAnalyserProblem.MoodAnalyser";
-                string constructorName = "Constructor";
                 ///Act
-                object obj = MoodAnalyserFactory.CreateMoodAnalyserObject(className, constructorName);
+                object obj = MoodAnalyserFactory.CreateMoodAnalyserObject("MoodAnalyserProblem.MoodAnalyser", "Constructor");
             }
             catch (MoodAnalysisCustomException exception)
             {
@@ -139,12 +130,9 @@ namespace MoodAnalyserTest
         [TestMethod]
         public void GivenMoodAnalyserClassName_ShouldReturnMoodAnalyser_ObjectUsingParametrizedConstructor()
         {
-            //Arrange
-            string className = "MoodAnalyserProblem.MoodAnalyser";
-            string constructorName = "MoodAnalyser";
-            MoodAnalyser expectedObj = new MoodAnalyser("HAPPY");
             //Act
-            object resultObj = MoodAnalyserFactory.CreateMoodAnalyserUsingParameterizedConstructor(className, constructorName);
+            MoodAnalyser expectedObj = new MoodAnalyser("HAPPY");
+            object resultObj = MoodAnalyserFactory.CreateMoodAnalyserUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "HAPPY");
             //Assert
             expectedObj.Equals(resultObj);
         }
@@ -156,12 +144,9 @@ namespace MoodAnalyserTest
         {
             try
             {
-                ///Arrange
-                string className = "Namespace.MoodAnalyser";
-                string constructorName = "MoodAnalyser";
-                MoodAnalyser expectedObj = new MoodAnalyser("HAPPY");
                 ///Act
-                object resultObj = MoodAnalyserFactory.CreateMoodAnalyserObject(className, constructorName);
+                MoodAnalyser expectedObj = new MoodAnalyser("HAPPY");
+                object resultObj = MoodAnalyserFactory.CreateMoodAnalyserObject("Namespace.MoodAnalyser", "MoodAnalyser");
             }
             catch (MoodAnalysisCustomException exception)
             {
@@ -177,16 +162,50 @@ namespace MoodAnalyserTest
         {
             try
             {
-                ///Arrange
-                string className = "MoodAnalyse.MoodAnalyser";
-                string constructorName = "ConstructorName";
                 ///Act
-                object resultObj = MoodAnalyserFactory.CreateMoodAnalyserObject(className, constructorName);
+                object resultObj = MoodAnalyserFactory.CreateMoodAnalyserObject("MoodAnalyse.MoodAnalyser", "ConstructorName");
             }
             catch (MoodAnalysisCustomException exception)
             {
                 ///Assert
                 Assert.AreEqual("constructor not found", exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Givens the happy message using reflection when proper should return happy.
+        /// </summary>        
+        [TestMethod]
+        public void GivenHappyMessageUsingReflection_WhenProper_ShouldReturnHappy()
+        {
+            ///Arrange
+            string messgae = "HAPPY";
+
+            ///Act
+            string result = MoodAnalyserFactory.InvokeAnalyseMood(messgae, "AnalyseMood");
+
+            ///Assert
+            Assert.AreEqual(messgae, result);
+
+        }
+        /// <summary>
+        /// Given improper method name should throw mood analysis exception.
+        /// </summary>
+        [TestMethod]
+        public void GivenImproperMethodName_Should_ThrowMoodAnalysisException()
+        {
+            try
+            {
+                ///Arrange
+                string message = "HAPPY";
+                string methodName = "AnalysisMood";
+                ///Act
+                string result = MoodAnalyserFactory.InvokeAnalyseMood(message, methodName);
+            }
+            catch (MoodAnalysisCustomException exception)
+            {
+                ///Assert
+                Assert.AreEqual("Method not found.", exception.Message);
             }
         }
     }

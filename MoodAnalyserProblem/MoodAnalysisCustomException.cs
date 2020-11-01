@@ -18,7 +18,7 @@ namespace MoodAnalyserProblem
             NO_SUCH_CLASS,
             OBJECT_CREATION_ISSUE
         }
-        private readonly ExceptionType type;
+        ExceptionType type;
         /// <summary>
         /// Initializes a new instance of the <see cref="MoodAnalysisCustomException"/> class.
         /// </summary>
@@ -26,7 +26,7 @@ namespace MoodAnalyserProblem
         /// <param name="message">The message.</param>
         public MoodAnalysisCustomException(ExceptionType type, string message) : base(message)
         { 
-            this.type = type;
+            this.type = type;            
         }
     }
 }
