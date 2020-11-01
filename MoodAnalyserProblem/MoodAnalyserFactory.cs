@@ -20,6 +20,7 @@ namespace MoodAnalyserProblem
         /// </exception>
         public static object CreateMoodAnalyserObject(string className, string constructorName)
         {
+            ///Checks for class name and consrtuctor name are same or not.
             string pattern = @"." + constructorName + "$";
             Match result = Regex.Match(className, pattern);
 
@@ -51,7 +52,7 @@ namespace MoodAnalyserProblem
         /// or
         /// class not found
         /// </exception>
-        public static object CreateMoodAnalyserUsingParameterizedConstructor(string className, string constructorName)
+        public static object CreateMoodAnalyserUsingParameterizedConstructor(string className, string constructorName, string message)
         {
             Type type = typeof(MoodAnalyser);
             if (type.Name.Equals(className) || type.FullName.Equals(className))
@@ -70,6 +71,28 @@ namespace MoodAnalyserProblem
             else
             {
                 throw new MoodAnalysisCustomException(MoodAnalysisCustomException.ExceptionType.NO_SUCH_CLASS, "class not found.");
+            }
+        }
+        /// <summary>
+        /// Invokes the analyse mood.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <returns></returns>
+        /// <exception cref="MoodAnalysisCustomException">Method not found.</exception>
+        public static string InvokeAnalyseMood(string message, string methodName)
+        {
+            try
+            {
+                Type type = Type.GetType("MoodAnalyserProblem.MoodAnalyser");
+                object moodAnalyseObject = MoodAnalyserFactory.CreateMoodAnalyserUsingParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", message);
+                MethodInfo methodInfo = type.GetMethod(methodName);
+                object mood = methodInfo.Invoke(moodAnalyseObject, null);
+                return mood.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalysisCustomException(MoodAnalysisCustomException.ExceptionType.NO_SUCH_METHOD, "Method not found.");
             }
         }
     }
